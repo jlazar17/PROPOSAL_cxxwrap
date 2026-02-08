@@ -671,7 +671,9 @@ JLCXX_MODULE define_julia_module(jlcxx::Module& mod) {
         .method("set_decay_table", &ParticleDef::Builder::SetDecayTable)
         .method("set_particle_type", &ParticleDef::Builder::SetParticleType)
         .method("set_particle_def", &ParticleDef::Builder::SetParticleDef)
-        .method("set_weak_partner", &ParticleDef::Builder::SetWeakPartner)
+        .method("set_weak_partner", [](ParticleDef::Builder& b, int partner) -> ParticleDef::Builder& {
+            return b.SetWeakPartner(static_cast<ParticleType>(partner));
+        })
         .method("build", &ParticleDef::Builder::build);
 
     // ========== Secondaries (Track) ==========
