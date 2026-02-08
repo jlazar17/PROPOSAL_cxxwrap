@@ -58,6 +58,10 @@ jobs:
             -DBUILD_PYTHON=OFF
           cmake --build /tmp/PROPOSAL/build --parallel $(nproc)
           cmake --install /tmp/PROPOSAL/build
+          # Patch PROPOSALConfig.cmake: the set_and_check macro gets clobbered by
+          # fmt's cmake config (transitive via spdlog), causing PACKAGE_PREFIX_DIR
+          # to resolve incorrectly. Remove the legacy variable lines that trigger it.
+          sed -i '/^set_and_check(PROPOSAL_/d' /tmp/PROPOSAL/install/lib/cmake/PROPOSAL/PROPOSALConfig.cmake
 
       - name: Build PROPOSAL_cxxwrap
         run: |
