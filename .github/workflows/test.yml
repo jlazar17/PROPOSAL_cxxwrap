@@ -19,7 +19,7 @@ jobs:
             cmake g++ \
             libfmt-dev libspdlog-dev \
             nlohmann-json3-dev \
-            libboost-dev libboost-filesystem-dev libeigen3-dev \
+            libboost-all-dev libeigen3-dev \
             libgsl-dev
 
       - name: Install Julia
