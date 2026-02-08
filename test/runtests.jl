@@ -62,7 +62,7 @@ end
 
     @testset "Geometry types" begin
         origin = PROPOSALLib.Cartesian3D(0.0, 0.0, 0.0)
-        sphere = PROPOSALLib.Sphere(origin, 1e5)
+        sphere = PROPOSALLib.Sphere(origin, 1e5, 0.0)
         @test sphere isa PROPOSALLib.Geometry
 
         cyl = PROPOSALLib.Cylinder(origin, 1e5, 0.0, 1e5)
@@ -102,7 +102,7 @@ end
     end
 
     @testset "Utility functions" begin
-        ver = PROPOSALLib.get_proposal_version()
+        ver = String(PROPOSALLib.get_proposal_version())
         @test ver isa String
         @test length(ver) > 0
 
