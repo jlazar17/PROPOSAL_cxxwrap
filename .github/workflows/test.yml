@@ -63,7 +63,7 @@ jobs:
         run: |
           cmake -S . -B build \
             -DCMAKE_BUILD_TYPE=Release \
-            -DCMAKE_PREFIX_PATH="/tmp/PROPOSAL/install;${{ steps.jlcxx.outputs.prefix }}" \
+            -DCMAKE_PREFIX_PATH="/tmp/PROPOSAL/install;/tmp/deps;${{ steps.jlcxx.outputs.prefix }}" \
             -DCMAKE_INSTALL_PREFIX=${{ github.workspace }}/install
           cmake --build build --parallel $(nproc)
           cmake --install build
