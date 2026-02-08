@@ -36,7 +36,7 @@ jobs:
 
       - name: Build PROPOSAL from source
         run: |
-          git clone --depth 1 \
+          git clone --depth 1 --branch 7.6.2 \
             https://github.com/tudo-astroparticlephysics/PROPOSAL.git /tmp/PROPOSAL
           cmake -S /tmp/PROPOSAL -B /tmp/PROPOSAL/build \
             -DCMAKE_INSTALL_PREFIX=/tmp/PROPOSAL/install \
