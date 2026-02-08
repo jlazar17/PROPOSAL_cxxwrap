@@ -34,12 +34,25 @@ jobs:
           PREFIX=$(julia -e 'using CxxWrap; print(CxxWrap.prefix_path())')
           echo "prefix=$PREFIX" >> "$GITHUB_OUTPUT"
 
+      - name: Build CubicInterpolation from source
+        run: |
+          git clone --depth 1 --branch v0.1.5 \
+            https://github.com/MaxSac/cubic_interpolation.git /tmp/cubic_interpolation
+          cmake -S /tmp/cubic_interpolation -B /tmp/cubic_interpolation/build \
+            -DCMAKE_INSTALL_PREFIX=/tmp/deps \
+            -DCMAKE_BUILD_TYPE=Release \
+            -DBUILD_TESTING=OFF \
+            -DBUILD_EXAMPLE=OFF
+          cmake --build /tmp/cubic_interpolation/build --parallel $(nproc)
+          cmake --install /tmp/cubic_interpolation/build
+
       - name: Build PROPOSAL from source
         run: |
           git clone --depth 1 --branch 7.6.2 \
             https://github.com/tudo-astroparticlephysics/PROPOSAL.git /tmp/PROPOSAL
           cmake -S /tmp/PROPOSAL -B /tmp/PROPOSAL/build \
             -DCMAKE_INSTALL_PREFIX=/tmp/PROPOSAL/install \
+            -DCMAKE_PREFIX_PATH=/tmp/deps \
             -DCMAKE_BUILD_TYPE=Release \
             -DBUILD_TESTING=OFF \
             -DBUILD_PYTHON=OFF
@@ -58,7 +71,7 @@ jobs:
       - name: Run Julia tests
         env:
           LIBPROPOSAL_CXXWRAP_PATH: ${{ github.workspace }}/install/lib/libPROPOSAL_cxxwrap.so
-          LD_LIBRARY_PATH: /tmp/PROPOSAL/install/lib:${{ github.workspace }}/install/lib
+          LD_LIBRARY_PATH: /tmp/PROPOSAL/install/lib:/tmp/deps/lib:${{ github.workspace }}/install/lib
         run: |
           julia --project=test -e 'using Pkg; Pkg.instantiate()'
           julia --project=test test/runtests.jl
