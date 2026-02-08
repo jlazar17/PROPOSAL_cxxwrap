@@ -1,6 +1,6 @@
 [deps]
 Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
-CxxWrap = "1f15be5c-5552-5c3b-a05d-10523be95b20"
+CxxWrap = "1f15a43c-97ca-5a2a-ae31-89f07a497df4"
 Libdl = "8f399da3-3557-5675-b5ff-fb832c97cbdb"
 # PROPOSAL_cxxwrap_jll is only needed when LIBPROPOSAL_CXXWRAP_PATH is not set.
 # Uncomment after the JLL is registered in the General registry:
