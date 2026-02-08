@@ -41,6 +41,7 @@ jobs:
           cmake -S /tmp/cubic_interpolation -B /tmp/cubic_interpolation/build \
             -DCMAKE_INSTALL_PREFIX=/tmp/deps \
             -DCMAKE_BUILD_TYPE=Release \
+            -DCMAKE_POSITION_INDEPENDENT_CODE=ON \
             -DBUILD_TESTING=OFF \
             -DBUILD_EXAMPLE=OFF
           cmake --build /tmp/cubic_interpolation/build --parallel $(nproc)
